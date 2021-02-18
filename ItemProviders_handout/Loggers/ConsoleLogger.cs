@@ -14,7 +14,7 @@ namespace PortioningMachine.Logger
         public void bin_closed(IBin bin)
         {
             double giveaway = ((bin.weight - bin.target) / bin.target) * 100;
-            Console.WriteLine("Bin closed:\nWeight: {0} Target: {1} Giveaway {2}", bin.weight, bin.target, giveaway);
+            Console.WriteLine("Bin closed:\nWeight: {0} Target: {1} Giveaway {2} %", bin.weight, bin.target, giveaway);
         }
 
         public void waste(IItem item)

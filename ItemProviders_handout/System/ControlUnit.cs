@@ -7,13 +7,19 @@ namespace PortioningMachine.SystemComponents
     {
         private ILogger _logger;
         private IAlgorithm _algorithm;
-        private List<IBin> _bins;
+        private List<IBin> _bins = new List<IBin>();
 
-        public ControlUnit(ILogger logger, IAlgorithm algorithm, List<IBin> bins)
+        public ControlUnit(ILogger logger, IAlgorithm algorithm, uint nr_bins, IItemScore method = null)
         {
             _logger = logger;
             _algorithm = algorithm;
-            _bins = bins;
+            
+            // Thight coupled with Bin (not ideal)
+            for (int i = 0; i < nr_bins; i++)
+            {
+                _bins.Add(new Bin(200, new ConsoleLogger()){score_method = method});
+            }
+
         }
 
         public void item_handler(object source, IItem item)

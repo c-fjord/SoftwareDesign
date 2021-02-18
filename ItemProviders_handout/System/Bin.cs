@@ -2,12 +2,12 @@ using PortioningMachine.Logger;
 
 namespace PortioningMachine.SystemComponents
 {
-    class Bin : IBin
+    public class Bin : IBin
     {
-        public double weight {get {return _weight; }}
+        public double weight {private set; get;} = 0;
         public double target {get; }
-        
-        private double _weight = 0;
+        public IItemScore score_method{set; private get;}
+
         private ILogger _logger;
 
         public Bin(double target, ILogger logger)
@@ -18,16 +18,23 @@ namespace PortioningMachine.SystemComponents
 
         public void add(IItem item)
         {
-            _weight += item.Weight;
-            if (_weight >= target) empty();
+            weight += item.Weight;
+            if (weight >= target) empty();
         }
 
         private void empty()
         {
-            double giveaway = ((_weight - target) / target) * 100; 
-            string log = string.Format("Bin weight: {0} Target weight: {1} Giveaway: {2}", _weight, target, giveaway);
+            double giveaway = ((weight - target) / target) * 100; 
             _logger.bin_closed(this);
-            _weight = 0;
+            weight = 0;
+        }
+        
+        public double score_item(IItem item)
+        {
+            if (score_method != null) return score_method.score(item, this);
+            else{
+                throw new System.Exception("Score methos has not been sat");
+            }
         }
     }
 }
