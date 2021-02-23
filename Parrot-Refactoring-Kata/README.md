@@ -1,6 +1,6 @@
 # Parrot Refactoring Kata
 =======================
-This refactoring problem has been created by [Kate] (https://github.com/emilybache) and can be found [here] (https://github.com/emilybache/Parrot-Refactoring-Kata)
+This refactoring problem has been created by [Kate] (https://github.com/emilybache) and can be found [here](https://github.com/emilybache/Parrot-Refactoring-Kata)
 
 Can you spot any code smells in this code? I'll give you a clue - a spot of Pol(l)ymorphism should improve matters!
 
