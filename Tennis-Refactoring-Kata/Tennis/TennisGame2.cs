@@ -17,106 +17,94 @@ namespace Tennis
             this.player2Name = player2Name;
         }
 
-        public string GetScore()
+        private string ScoreBelow4(int point)
         {
             var score = "";
-            if (p1point == p2point && p1point < 3)
+            switch(point)
             {
-                if (p1point == 0)
+                case 0:
                     score = "Love";
-                if (p1point == 1)
+                break;
+                    
+                case 1:
                     score = "Fifteen";
-                if (p1point == 2)
+                break;
+
+                case 2:
                     score = "Thirty";
-                score += "-All";
-            }
-            if (p1point == p2point && p1point > 2)
-                score = "Deuce";
+                break;
 
-            if (p1point > 0 && p2point == 0)
-            {
-                if (p1point == 1)
-                    p1res = "Fifteen";
-                if (p1point == 2)
-                    p1res = "Thirty";
-                if (p1point == 3)
-                    p1res = "Forty";
-
-                p2res = "Love";
-                score = p1res + "-" + p2res;
-            }
-            if (p2point > 0 && p1point == 0)
-            {
-                if (p2point == 1)
-                    p2res = "Fifteen";
-                if (p2point == 2)
-                    p2res = "Thirty";
-                if (p2point == 3)
-                    p2res = "Forty";
-
-                p1res = "Love";
-                score = p1res + "-" + p2res;
-            }
-
-            if (p1point > p2point && p1point < 4)
-            {
-                if (p1point == 2)
-                    p1res = "Thirty";
-                if (p1point == 3)
-                    p1res = "Forty";
-                if (p2point == 1)
-                    p2res = "Fifteen";
-                if (p2point == 2)
-                    p2res = "Thirty";
-                score = p1res + "-" + p2res;
-            }
-            if (p2point > p1point && p2point < 4)
-            {
-                if (p2point == 2)
-                    p2res = "Thirty";
-                if (p2point == 3)
-                    p2res = "Forty";
-                if (p1point == 1)
-                    p1res = "Fifteen";
-                if (p1point == 2)
-                    p1res = "Thirty";
-                score = p1res + "-" + p2res;
-            }
-
-            if (p1point > p2point && p2point >= 3)
-            {
-                score = "Advantage player1";
-            }
-
-            if (p2point > p1point && p1point >= 3)
-            {
-                score = "Advantage player2";
-            }
-
-            if (p1point >= 4 && p2point >= 0 && (p1point - p2point) >= 2)
-            {
-                score = "Win for player1";
-            }
-            if (p2point >= 4 && p1point >= 0 && (p2point - p1point) >= 2)
-            {
-                score = "Win for player2";
+                case 3:
+                    score = "Forty";
+                break;
             }
             return score;
         }
 
-        public void SetP1Score(int number)
+        private bool isPlayerWinner(int p1, int p2)
         {
-            for (int i = 0; i < number; i++)
-            {
-                P1Score();
-            }
+             if (p1>= 4 && p2>= 0 && (p1- p2) >= 2) return true;
+             else { return false; }
         }
 
-        public void SetP2Score(int number)
+        private bool isPlayerAdvantage(int p1, int p2)
         {
-            for (var i = 0; i < number; i++)
+            if (p1 > p2 && p2 >= 3) return true;
+            else { return false;}
+        }
+
+        private bool isScoreAll()
+        {
+            if (p1point == p2point && p1point < 3) return true;
+            else { return false; }
+        }
+
+        private bool isScoreDeuce()
+        {
+            if (p1point == p2point && p1point > 2) return true;
+            else { return false; }
+        }
+
+        private bool isBelow4()
+        {
+            if (p1point <= 3 && p2point <= 3 && p1point != p2point) return true;
+            else { return false; }
+        }
+
+        public string GetScore()
+        {            
+            if (isPlayerWinner(p1point, p2point))
             {
-                P2Score();
+                return "Win for player1";
+            }           
+            else if (isPlayerWinner(p2point, p1point))
+            {
+                return "Win for player2";
+            }
+            else if (isScoreAll())
+            {
+                var s = ScoreBelow4(p1point);
+                return s += "-All";
+            }
+            else if (isScoreDeuce())
+            {
+                return "Deuce";
+            }
+            else if (isBelow4())
+            {
+                return ScoreBelow4(p1point) + "-" + ScoreBelow4(p2point);
+            }
+            else if (isPlayerAdvantage(p1point, p2point))
+            {
+                return "Advantage player1";
+            }
+            else if (isPlayerAdvantage(p2point, p1point))
+            {
+                return "Advantage player2";
+            }
+            else
+            {
+                throw new System.Exception("Invalid score");
             }
         }
 

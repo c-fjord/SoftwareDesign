@@ -39,3 +39,51 @@ As an alternative to downloading the code, click one of the links below to creat
 - [Java](http://cyber-dojo.org/forker/fork/4D363A34A7?avatar=vulture&tag=3)
 - [C++](http://cyber-dojo.org/forker/fork/A06DCDA217?avatar=wolf&tag=5)
 - [C#](http://cyber-dojo.org/forker/fork/672E047F5D?avatar=buffalo&tag=8)
+
+
+# Exercise
+## Tennis game 1
+**Code smells**
+* Long Method
+The GetScore() method does too much and is too long.
+
+* Conditional Complexity 
+It can be hard to read and understand the logic statements inside the GetScore() method.
+
+**Solution**
+* Divided the GetScore() method into smaller methods, with less responsibility.
+This makes the method shorter and it is now possible to reuse the code to avoid duplicates.
+
+* Decomposed conditional statements by separating them into methods.
+This makes the code easier to read.
+
+## Tennis game 2
+**Code smells**
+* Dead code
+SetP1Score and SetP2Score is never used.
+
+* Duplicated code
+Finding player 1 and 2 scores use the same code
+
+* Long method
+The GetScore() method does too much and is too long.
+
+* Conditional Complexity 
+It can be hard to read and understand the logic statements inside the GetScore() method.
+
+**Solution**
+* Divided the GetScore() method into smaller methods, with less responsibility.
+This makes the method shorter and it is now possible to reuse the code to avoid duplicates.
+
+* Decomposed conditional statements by separating them into methods.
+This makes the code easier to read.
+
+* Removed the dead code
+
+## Tenis game 3
+**Code smells**
+* Conditional Complexity 
+It is very hard to read and understand what is going on inside the GetScore() method.
+
+**Solution**
+* 
